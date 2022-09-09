@@ -1,2 +1,8 @@
 GENERICS:
+- compare the two methods
 
+den første metode, kræver at T implementere Icomparable<T> for at metoden godtager typen. 
+den anden metode, kræver at T implementere U som implementere Icomparable<U> for at den godtager typen.
+
+ITERATORS: 
+- see interators.cs
