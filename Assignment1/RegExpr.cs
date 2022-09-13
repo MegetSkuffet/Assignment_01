@@ -53,28 +53,25 @@ public static class RegExpr
 
     public static IEnumerable<(Uri url, string title)> Urls(string html)
     {
-        var pattern = @"<a ?.+?>.+?</a>";
+        var pattern = "<a (\bhref=\"\b)?(?<link>[\\w:/.()]+)\" (\btitle=\"\b)?(?<title>[\\w ()]+)?\">(?<innertext>[\\w ]+)</a>" ;
         var matches = Regex.Matches(html, pattern);
+
         foreach (Match match in matches)
         {
-            var pattern3 = "(\bhref=\"\b)+?(?<url>[\\w+ (),.:/]+)";
-            var matches3 = Regex.Matches(match.Result
-            var pattern2 = "(\btitle\"\b)+?(?<title>[\\w+ (),.]+)";
-            var matches2 = Regex.Matches(match.Value, pattern2);
-            foreach (Match match2 in matches2)
-            {
-                if ()
-                {
-                    // title
-                }
-                else
-                {
-                    // innertext
+            Uri link = new Uri(match.Groups["link"].Value);
+            var title = match.Groups["title"].Value;
+            var innertext = match.Groups["innertext"].Value;
 
-                    //yield return InnerText(match.Value, "a");
-                }
+            if (title != null)
+            {
+                yield return (link, title);
+            }
+            else 
+            {
+                yield return (link, innertext);
             }
         }
+     
     }
 }
 
