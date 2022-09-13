@@ -37,7 +37,17 @@ public static class RegExpr
 
     public static IEnumerable<string> InnerText(string html, string tag) 
     {
-            
+            var pattern = $@"<{tag}>(?<innertext>.+)</{tag}>";
+            var matches = Regex.Matches(html, pattern);
+
+             foreach (Match match in matches)
+             {
+                var value = match.Groups["innertext"].Value;
+                Regex rg = new Regex(@"(</?.?>)");
+                string innertext = rg.Replace(value,"");
+                yield return innertext;
+             }
+           
     }
     
 

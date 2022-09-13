@@ -21,4 +21,12 @@ public class RegExprTests
         Assert.Equal(new List<(int, int)> {(4000,2000), (5000,2000), (786868,20)}, result);
     }
 
+    [Fact]
+    public void html_to_innertext(){
+        var html = "<p>hej med <i>dig</i></p>";
+        var result = RegExpr.InnerText(html,"p");
+
+       
+        Assert.Equal(new string[]{"hej med dig"}, result);
+    }
 }
