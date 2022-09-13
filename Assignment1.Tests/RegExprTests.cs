@@ -11,4 +11,14 @@ public class RegExprTests
        
         Assert.Equal(new List<string> {"hej","med","dig"}, result);
     }
+
+    [Fact]
+    public void Resolution_test(){
+        var resolutions = "4000x2000, 5000x2000, 786868x20";
+        var result = RegExpr.Resolution(resolutions);
+
+       
+        Assert.Equal(new List<(int, int)> {(4000,2000), (5000,2000), (786868,20)}, result);
+    }
+
 }

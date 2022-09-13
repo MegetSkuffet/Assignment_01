@@ -22,7 +22,18 @@ public static class RegExpr
         }*/
     }
 
-    public static IEnumerable<(int width, int height)> Resolution(string resolutions) => throw new NotImplementedException();
+    public static IEnumerable<(int width, int height)> Resolution(string resolutions) 
+    {
+        var pattern = @"(?<width>[0-9]+)[x+](?<height>[0-9]+)";
+            var matches = Regex.Matches(resolutions, pattern);
+            foreach (Match match in matches)
+            {
+                var groups = match.Groups;
+                int width = Int32.Parse(groups["width"].Value);
+                int height = Int32.Parse(groups["height"].Value);
+                yield return (width, height);
+            }
+    }
 
     public static IEnumerable<string> InnerText(string html, string tag) => throw new NotImplementedException();
 }
