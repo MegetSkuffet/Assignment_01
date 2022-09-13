@@ -29,4 +29,13 @@ public class RegExprTests
        
         Assert.Equal(new string[]{"hej med dig"}, result);
     }
+
+    [Fact]
+    public void html_to_innertext_with_link(){
+        var html = "<a href='asd'><p>hej med <i>dig</i> <a href='google.dk'>link</a></p></a>";
+        var result = RegExpr.InnerText(html,"a");
+
+       
+        Assert.Equal(new string[]{"hej med dig link"}, result);
+    }
 }
