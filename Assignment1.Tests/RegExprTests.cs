@@ -31,12 +31,23 @@ public class RegExprTests
     }
 
     [Fact]
-    public void html_to_innertext_with_link(){
-        var html = "<a href='asd'><p>hej med <i>dig</i> <a href='google.dk'>link</a></p></a>";
-        var result = RegExpr.InnerText(html,"a");
+    public void html_to_innertext_with_link_without_title(){
+        var html = "<p>Dette er et <a href=\"https://google.dk\">link</a></p>";
+        var result = RegExpr.Urls(html);
 
-       
-        Assert.Equal(new string[]{"hej med dig link"}, result);
+        var link = new Uri("https://google.dk");
+        var innertext = "link";
+        Assert.Equal(new List<(Uri, string)>{(link, innertext)}, result);
+    }
+
+    [Fact]
+    public void html_to_innertext_with_link_with_title(){
+        var html = "<p>Dette er et <a href=\"https://google.dk\" title=\"en titel\">link</a></p>";
+        var result = RegExpr.Urls(html);
+
+        var link = new Uri("https://google.dk");
+        var title = "en titel";
+        Assert.Equal(new List<(Uri, string)>{(link, title)}, result);
     }
 
     
